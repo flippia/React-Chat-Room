@@ -1,0 +1,47 @@
+.chatRoom .header{
+    padding: 0 0 0 0.5em;
+    text-align: start;
+    border-bottom: solid #a3a3a373;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  }
+  
+  .chatRoom .header button{  
+    font-family: 'Otomanopee One', sans-serif;
+    color: #bbb;
+    font-size: 2.2em;
+    letter-spacing: 0.05em;
+    border: none;
+    margin: 0.2em 0 0.2em 0.4em;
+    cursor: pointer;
+    padding: 0 0.5em 0 0.5em;
+    border-radius: 0.5em;  
+  }
+  
+  .chatRoom .header button.inactive:hover{
+    box-shadow: 0.04em 0.04em 0.06em rgb(102, 86, 86);
+    color: rgb(38, 153, 206);
+    border-radius: 0;
+  }
+  
+  .chatRoom .header button.active{
+    color: rgb(3, 44, 92);
+    background-color: rgb(229, 200, 145);
+  }
+  
+  .chatRoom .header a{
+    text-decoration: none;
+    color: rgb(3, 44, 92);
+    border: none;
+    border-radius: 0.5em;
+    font-size: 2.2em;
+    grid-column: 7/9;
+    text-align: center;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    /* Extra-light 200; Light 300; Regular 400; Medium 500; Semi-bold 600; Bold 700 */
+    letter-spacing: 0.05em;
+    background-color: rgb(229, 200, 145);
+    margin: 0.2em 0.4em 0.2em 0.4em;
+  }
+  
