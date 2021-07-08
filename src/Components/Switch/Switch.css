@@ -1,0 +1,46 @@
+.switch{
+    display: flex;
+    padding: 1em;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .switch h1{
+    font-size: 3em;
+  }
+  
+  .switch form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* border: solid; */
+    padding: 1em;
+  }
+  
+  .switch form label{
+    display: block;
+    margin: 1em 0 0.1em 0;
+    width: 100%;
+    font-size: 1.5em;
+    text-align: left; 
+  }
+  
+  .switch input{
+    box-sizing: border-box;
+    display: block;
+    margin: 0.1em 0 1.5em 0;
+    font-size: 1.5em;
+    padding: 0.2em;
+  }
+  
+  .switch button{
+    cursor: pointer;
+    font-family: 'Otomanopee One', sans-serif;
+    /* margin: 1em 0 1em 0; */
+    font-size: 1.5em; 
+    letter-spacing: 0.05em; 
+    background-color: rgb(229, 200, 145);
+    border-radius: 0.3em;
+    border: none;
+    padding: 0.4em;
+  }
