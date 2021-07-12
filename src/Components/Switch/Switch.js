@@ -1,35 +1,44 @@
 import "./Switch.css";
-import { useState,useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import Signup from "./Signup";
+import Login from "./Login";
+import useLogout from "./useLogout";
+import { useState, useEffect } from "react";
+import { projectAuth } from "../../firebase/config";
 
 const Switch = () => {
-    const [Id, setId] = useState(null);
-    const history = useHistory();
-    
-    const handleSubmit = () => {
-        if(!localStorage.getItem('user')){
-            localStorage.setItem('user','Saber');
-            history.push('/chat');
-        }else{
-            localStorage.setItem('user',Id);
-            history.push('/chat');
-        };
-    };
+    const [showLogin, setShowLogin] = useState(true);
+    const [user, setUser] = useState(projectAuth.currentUser);
+    const [userId, setUserId] = useState('');
+    const { error, Logout } = useLogout();
 
+    const handleClick = async () => {
+        await Logout();
+        window.location.reload();
+    };
+    
     useEffect(() => {
-        document.querySelector('form').querySelector('input').maxLength = "9";
-    })
+        if(projectAuth.currentUser){setUserId(projectAuth.currentUser.displayName)};
+    });
+
+    const getUser = () => {
+        projectAuth.onAuthStateChanged(_user => {
+            if(_user){
+                setUser(_user);
+                setUserId(_user.displayName);
+            };            
+        })
+    }
 
     return (
         <div className="switch">
-            <h1>Current User: {localStorage.getItem('user') ? localStorage.getItem('user') : 'Saber'}</h1>
-            <form onSubmit={handleSubmit}>
-                <label>Input username:</label>
-                <input type="text" required
-                onChange={e => {setId(e.target.value)}}
-                />
-                <button>Submit</button>
-            </form>            
+            <div className="user">
+                <h1>Current User: {projectAuth.currentUser ? userId : ''}</h1>
+                <button className="logout" onClick={handleClick}>Log out</button>
+            </div>            
+            {!showLogin && <Signup />}
+            {showLogin && <Login getUser={getUser}/>}
+            {!showLogin && <p>Already registered? <span onClick={() => setShowLogin(true)}>Log in</span> instead.</p>}
+            {showLogin && <p>No account? <span onClick={() => setShowLogin(false)}>Sign up</span> instead.</p>}
         </div>
     );
 }
