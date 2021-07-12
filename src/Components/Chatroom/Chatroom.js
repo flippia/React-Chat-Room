@@ -1,6 +1,6 @@
 import "./Chatroom.css";
 import { useState, useEffect } from "react";
-import { projectFirestore } from '../../firebase/config';
+import { projectFirestore, projectAuth } from '../../firebase/config';
 import Chats from "./Chats/Chats";
 import Header from "./Header/Header";
 
@@ -10,8 +10,19 @@ const Chatroom = () => {
     const [ chats, setChats] = useState([]); 
     const [ filter, setFilter] = useState([]); 
     const [room, setRoom] = useState('general'); 
-    const [user, setUser] = useState('Saber'); 
     const [withdrawId, setWithdrawId] = useState(null);
+
+    const [user, setUser] = useState(projectAuth.currentUser);
+    const [userId, setUserId] = useState('');
+
+    useEffect(() => {
+        projectAuth.onAuthStateChanged(_user => {
+            if(_user){
+                setUser(_user);
+                setUserId(_user.displayName); 
+            };                       
+        });
+    });
 
     const switchChatRoom = (name) => {
         setRoom(name);       
@@ -26,20 +37,22 @@ const Chatroom = () => {
 
     const sendMessage = () => {
         const inputMessage = document.querySelector('.inputmessage');
-        if(message !== ""){
-            const post = {
-                ID: user,
-                content: message,
-                time: new Date()
+        if(userId !== ''){
+            if(message !== ""){
+                const post = {
+                    ID: userId,
+                    content: message,
+                    time: new Date()
+                }
+                projectFirestore.collection(room).add(post);            
+                inputMessage.value = '';
+                setMessage('');
+                setTimeout(() => {setWithdrawId(null)}, 60000);
+            }else{
+                alert("Please input first.");
+                inputMessage.value = '';
             }
-            projectFirestore.collection(room).add(post);            
-            inputMessage.value = '';
-            setMessage('');
-            setTimeout(() => {setWithdrawId(null)}, 60000);
-        }else{
-            alert("Please input first.");
-            inputMessage.value = '';
-        }        
+        }                
     }
 
     const selectChat = (e) => {
@@ -110,19 +123,12 @@ const Chatroom = () => {
         realTimeListener(room);             
     },[]);
 
-    useEffect(() => {
-        if(localStorage.getItem('user')){
-            setUser(localStorage.getItem('user'));
-        }        
-    });   
-    
-
     return ( 
         <div className="chatRoom">
-            <Header room = {room} user = {user} switchChatRoom={switchChatRoom} realTimeListener={realTimeListener} />
+            <Header room = {room} userId = {userId} switchChatRoom={switchChatRoom} realTimeListener={realTimeListener} />
             <div className="chats">
                 <div className="chatsArea">
-                    {chats && <Chats chats={chats} user={user} selectChat={selectChat} withdrawId={withdrawId}/>} 
+                    {chats && <Chats chats={chats} userId={userId} selectChat={selectChat} withdrawId={withdrawId}/>} 
                 </div> 
                 <div className="search">
                     <textarea
@@ -145,6 +151,7 @@ const Chatroom = () => {
                 className="withdraw">Withdraw</button>
                 <button 
                 onClick={() => sendMessage()}
+                disabled={userId === '' ? true : false}
                 className="send">Send</button>
             </div>     
         </div>        
