@@ -1,36 +1,59 @@
 .switch{
-    display: flex;
-    padding: 1em;
+    display: flex;    
     flex-direction: column;
     align-items: center;
+    padding: 0.5em;
+    text-align: center;
   }
   
-  .switch h1{
-    font-size: 3em;
-  }
+  .switch .user{
+    box-sizing: border-box;
+    width: 70%;
+    background-color: ivory;
+    border-radius: 0.8em;
+    padding: 0 1.5em 0 1.5em;
+    margin-top: 0.5em;
+    display: flex;
+    align-items: center;    
+  } 
   
+  .switch .user h1{
+    display: inline;
+  }
+
+  .switch .user button{
+    margin-left: auto;
+    margin-top: 0;
+  }
+
   .switch form{
+    width: 20em;
+    background-color: ivory;
     display: flex;
     flex-direction: column;
     align-items: center;
     /* border: solid; */
-    padding: 1em;
+    padding: 0.5em 2.5em 2.5em 2.5em;
+    border-radius: 0.8em;
+    margin-top: 2em;
   }
   
   .switch form label{
     display: block;
-    margin: 1em 0 0.1em 0;
+    margin: 0.6em 0 0.1em 0;
     width: 100%;
-    font-size: 1.5em;
+    font-size: 1.2em;
     text-align: left; 
   }
   
   .switch input{
-    box-sizing: border-box;
+    width: 100%;
+    border: solid #eee;
     display: block;
-    margin: 0.1em 0 1.5em 0;
-    font-size: 1.5em;
-    padding: 0.2em;
+    margin: 0.1em 0 0.3em 0;
+    font-size: 1.2em;
+    padding: 0.2em 0 0.2em 0.2em;
+    outline: none;
   }
   
   .switch button{
@@ -42,5 +65,23 @@
     background-color: rgb(229, 200, 145);
     border-radius: 0.3em;
     border: none;
-    padding: 0.4em;
+    margin: 2em 0 0 0;
+    padding: 0.4em 0.7em 0.4em 0.7em;
+  } 
+
+  .switch button:hover{
+    color: rgb(38, 153, 206);
+  }
+
+  .switch .error{
+    background-color: inherit;
+    color: red;
+    margin: 2em 0 0 0;
+  }
+
+  .switch span{
+    font-weight: bold;
+    font-size: 1.2em;
+    text-decoration: underline;
+    cursor: pointer;
   }
