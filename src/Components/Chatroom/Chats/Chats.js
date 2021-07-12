@@ -1,6 +1,6 @@
 import "./Chats.css";
 
-const Chats = ({user, chats, selectChat, withdrawId}) => {
+const Chats = ({userId, chats, selectChat, withdrawId}) => {
     const timeConverter = (UNIX_timestamp) => {
         const Month = ['Jan', 'Feb', 'Mar', 'Apr', 'May',' Jun', 'Jul', 'Aug','Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -20,7 +20,7 @@ const Chats = ({user, chats, selectChat, withdrawId}) => {
             {chats.map(chat => (
                 <div 
                 id={chat.id}
-                className={`${chat.ID === user ? "currentId" : "oneChat"} ${chat.id === withdrawId ? "selected" : ""}`}
+                className={`${chat.ID === userId ? "currentId" : "oneChat"} ${chat.id === withdrawId ? "selected" : ""}`}
                 onClick={(e) => selectChat(e)}
                 key={chat.id}>
                     <p className="id">{chat.ID}</p><p className="time">{timeConverter(chat.time.seconds)}</p>
