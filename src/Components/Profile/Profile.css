@@ -1,0 +1,36 @@
+.profile{
+    padding: 1em;
+    text-align: center;
+  }
+
+  .profile .upload{
+    background-color: ivory;
+    border-radius: 0.8em;
+    display: flex;
+    align-items: flex-start;
+    box-sizing: border-box;
+    width: 70%;
+    flex-direction: column;
+    margin: auto;
+  }
+  
+  .profile .upload input, button, a{  
+    margin: 1.5em;
+  }
+  
+  .profile .upload input, button{
+    font-size: 1.2em;
+  }
+  
+  .profile .upload a{
+    text-decoration: none;
+    cursor: pointer;
+    font-family: 'Otomanopee One', sans-serif;
+    font-size: 1.5em;
+    color: rgb(110, 150, 150);
+  }
+  
+  .profile .upload a:hover{
+    color: rgb(38, 153, 206);
+    text-decoration: underline;
+  }
