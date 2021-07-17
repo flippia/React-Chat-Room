@@ -22,7 +22,7 @@ const Header = ({userId, realTimeListener, switchChatRoom}) => {
             <button 
             onClick={handleClick}
             className={`music ${current ==='game' ? "active" : "inactive"}`}>Game</button>
-            <Link to="/switch">{userId}</Link>
+            <Link to="/profile">{userId}</Link>
         </div>
     );
 }
