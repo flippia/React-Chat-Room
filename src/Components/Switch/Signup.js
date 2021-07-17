@@ -9,22 +9,10 @@ const Signup = () => {
     const history = useHistory();
     const { error, Signup } = useSignup();
 
-    // useEffect(() => {
-    //     document.querySelector('form').querySelector('input').maxLength = "9";
-    // })
-
     const handleSubmit = async(e) => {
         e.preventDefault();
 
         await Signup(email, password, name);
-
-        // if(!localStorage.getItem('user')){
-        //     localStorage.setItem('user','Saber');
-        //     history.push('/chat');
-        // }else{
-        //     localStorage.setItem('user',name);
-        //     history.push('/chat');
-        // };
     }
 
     return (  
