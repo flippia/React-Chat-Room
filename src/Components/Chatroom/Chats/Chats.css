@@ -1,56 +1,56 @@
 
 .Chats{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-  }
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
   
-  .Chats .oneChat{
-    border-radius: 0.5em;
-    background-color: rgb(240, 230, 140);
-    word-wrap: break-word;  
-    padding: 0.3em;
-    margin: 0.5em;
-    text-align: left;
-    min-width: none;
-    max-width: 60%;
-    align-self: flex-start;
-  }
+.Chats .oneChat{
+  border-radius: 0.5em;
+  background-color: rgb(240, 230, 140);
+  word-wrap: break-word;  
+  padding: 0.3em;
+  margin: 0.5em;
+  text-align: left;
+  min-width: none;
+  max-width: 60%;
+  align-self: flex-start;
+}
   
-  .Chats .currentId{
-    background-color: rgb(240, 180, 140);  
-    border-radius: 0.5em;
-    word-wrap: break-word;
-    padding: 0.3em;
-    margin: 0.5em; 
-    min-width: none;
-    max-width: 60%;
-    align-self: flex-end;
-  }
+.Chats .currentId{
+  background-color: rgb(240, 180, 140);  
+  border-radius: 0.5em;
+  word-wrap: break-word;
+  padding: 0.3em;
+  margin: 0.5em; 
+  min-width: none;
+  max-width: 60%;
+  align-self: flex-end;
+}
 
-  .Chats .selected{
-    background-color: rgb(240, 90, 90);
-  }
+.Chats .selected{
+  background-color: rgb(240, 90, 90);
+}
   
-  .Chats .id, .time{
-    display: inline;  
-    margin: 0.5em;
-  }
+.Chats .id, .time{
+  display: inline;  
+  margin: 0.5em;
+}
   
-  .Chats .id{
-    font-family: 'Oswald', sans-serif;
-    font-weight: 600;
-    /* Extra-light 200; Light 300; Regular 400; Medium 500; Semi-bold 600; Bold 700 */
-    font-size: 1em;
-    letter-spacing: 0.02em;
-  }
+.Chats .id{
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  /* Extra-light 200; Light 300; Regular 400; Medium 500; Semi-bold 600; Bold 700 */
+  font-size: 1em;
+  letter-spacing: 0.02em;
+}
   
-  .Chats .content{
-    margin: 0.5em;
-  }
+.Chats .content{
+  margin: 0.5em;
+}
   
-  .chats .search{
-    display: grid;
-    grid-template-rows: 9fr 1fr;
-    grid-row-gap: 0.5em;
-  }
+.chats .search{
+  display: grid;
+  grid-template-rows: 9fr 1fr;
+  grid-row-gap: 0.5em;
+}
