@@ -30,29 +30,27 @@ const Chatroom = () => {
 
     const handleSearch = () => {
         console.log(search);
-        // chats.forEach(chat => {
-        //     chat.content
-        // })
+        // const searchChats = chats.map(chat => {
+        //     chat.content.includes(search)
+        // });
     }
 
     const sendMessage = () => {
-        const inputMessage = document.querySelector('.inputmessage');
-        if(userId !== ''){
-            if(message !== ""){
-                const post = {
-                    ID: userId,
-                    content: message,
-                    time: new Date()
-                }
-                projectFirestore.collection(room).add(post);            
-                inputMessage.value = '';
-                setMessage('');
-                setTimeout(() => {setWithdrawId(null)}, 60000);
-            }else{
-                alert("Please input first.");
-                inputMessage.value = '';
+        const inputMessage = document.querySelector('.inputmessage');        
+        if(message !== ""){
+            const post = {
+                ID: userId,
+                content: message,
+                time: new Date()
             }
-        }                
+            projectFirestore.collection(room).add(post);            
+            inputMessage.value = '';
+            setMessage('');
+            setTimeout(() => {setWithdrawId(null)}, 60000);
+        }else{
+            alert("Please input first.");
+            inputMessage.value = '';
+        }                      
     }
 
     const selectChat = (e) => {
@@ -151,7 +149,6 @@ const Chatroom = () => {
                 className="withdraw">Withdraw</button>
                 <button 
                 onClick={() => sendMessage()}
-                disabled={userId === '' ? true : false}
                 className="send">Send</button>
             </div>     
         </div>        
