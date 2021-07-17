@@ -1,6 +1,5 @@
 import { useState } from "react";
 import useLogin from './useLogin';
-import { projectAuth } from "../../firebase/config";
 
 const Login = ({getUser}) => {
     const [email, setEmail] = useState(null);
