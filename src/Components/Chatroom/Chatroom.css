@@ -2,29 +2,26 @@
   display: flex;
   height: 29em;
   padding: 0.5em;
-  flex-direction: row;
 }
   
 .chatsArea{
-  overflow-y: scroll; 
-  overflow-x: hidden;
+  width: 90%;
+  overflow: auto;
   display: flex;
   justify-content: center;
-  width: 100%;
-  flex-shrink: 1;
 }
 
 .search{
-  flex-shrink: 9;
-  padding: 0 0 0 0.5em;
+  width: 10%;
+  padding: 0 0.5em 0 0.5em;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center; 
 }
 
 .search textarea{
   height: 30em;
+  margin-bottom: 1em;
 }
 
 .search button{
@@ -34,10 +31,13 @@
   font-size: 1.3em;
   letter-spacing: 0.05em;
   height: 1.6em;
+  /* width: 4em; */
+  align-self: center;
   cursor: pointer;
   background-color: rgb(200, 200, 200);
   border: none;
-  margin-top: 0.5em;
+  margin-top: 0.5em;  
+  margin-bottom: 0.5em;
   margin-right: center;
 }
 
