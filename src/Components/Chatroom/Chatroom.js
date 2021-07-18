@@ -5,7 +5,7 @@ import Chats from "./Chats/Chats";
 import Header from "./Header/Header";
 
 const Chatroom = () => {
-    const [search, setSearch] = useState(null);
+    const [search, setSearch] = useState('');
     const [message, setMessage] = useState('');
     const [ chats, setChats] = useState([]); 
     const [ filter, setFilter] = useState([]); 
@@ -29,10 +29,8 @@ const Chatroom = () => {
     }
 
     const handleSearch = () => {
-        console.log(search);
-        // const searchChats = chats.map(chat => {
-        //     chat.content.includes(search)
-        // });
+        console.log(search);        
+        console.log(chats.filter(chat => chat.content.includes(search)));
     }
 
     const sendMessage = () => {
@@ -130,9 +128,11 @@ const Chatroom = () => {
                 </div> 
                 <div className="search">
                     <textarea
+                    value={search}
                     onChange={e => setSearch(e.target.value)}
                     placeholder="Please input here"></textarea>
                     <button onClick={()=>handleSearch()}>Search</button>
+                    <button onClick={() => setSearch('')}>Reset</button>
                 </div> 
             </div>
             <div className="input">
