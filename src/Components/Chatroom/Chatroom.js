@@ -8,6 +8,7 @@ const Chatroom = () => {
     const [search, setSearch] = useState('');
     const [message, setMessage] = useState('');
     const [ chats, setChats] = useState([]); 
+    const [ allChats, setAllChats] = useState([]); 
     const [ filter, setFilter] = useState([]); 
     const [room, setRoom] = useState('general'); 
     const [withdrawId, setWithdrawId] = useState(null);
@@ -28,9 +29,11 @@ const Chatroom = () => {
         setRoom(name);       
     }
 
-    const handleSearch = () => {
-        console.log(search);        
-        console.log(chats.filter(chat => chat.content.includes(search)));
+    const handleSearch = () => {   
+        setSearch(search.replace(/[.*+?^${}()|[\]\\]/gi,"\\$&"));
+        // const pattern = new RegExp(`${search}`, "gi");
+        console.log(search);
+        setChats(allChats.filter(chat => chat.content.includes(search)));
     }
 
     const sendMessage = () => {
@@ -96,7 +99,7 @@ const Chatroom = () => {
         }).then(docs => docs.map(doc => {
             return{...doc.data(),id: doc.id};
         })).then(data => {
-            setChats(data);
+            setAllChats(data);
             const chatsarea = document.querySelector('.chatsArea');
             chatsarea.scrollTop = chatsarea.scrollHeight;
         }) 
@@ -108,6 +111,7 @@ const Chatroom = () => {
                 let docs = snap.docs.map(doc => {
                     return { ...doc.data(), id: doc.id }
                 })
+                setAllChats(docs);
                 setChats(docs);
                 const chatsarea = document.querySelector('.chatsArea');
                 chatsarea.scrollTop = chatsarea.scrollHeight;
@@ -124,7 +128,7 @@ const Chatroom = () => {
             <Header room = {room} userId = {userId} switchChatRoom={switchChatRoom} realTimeListener={realTimeListener} />
             <div className="chats">
                 <div className="chatsArea">
-                    {chats && <Chats chats={chats} userId={userId} selectChat={selectChat} withdrawId={withdrawId}/>} 
+                    {chats && <Chats chats={chats} userId={userId} selectChat={selectChat} withdrawId={withdrawId} search={search}/>} 
                 </div> 
                 <div className="search">
                     <textarea
@@ -132,7 +136,10 @@ const Chatroom = () => {
                     onChange={e => setSearch(e.target.value)}
                     placeholder="Please input here"></textarea>
                     <button onClick={()=>handleSearch()}>Search</button>
-                    <button onClick={() => setSearch('')}>Reset</button>
+                    <button onClick={() => {
+                        setSearch('');
+                        realTimeListener(room);
+                    }}>Reset</button>
                 </div> 
             </div>
             <div className="input">
