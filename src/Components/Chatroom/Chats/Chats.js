@@ -1,6 +1,7 @@
 import "./Chats.css";
+import { useEffect } from "react";
 
-const Chats = ({userId, chats, selectChat, withdrawId}) => {
+const Chats = ({userId, chats, selectChat, withdrawId, search}) => {
     const timeConverter = (UNIX_timestamp) => {
         const Month = ['Jan', 'Feb', 'Mar', 'Apr', 'May',' Jun', 'Jul', 'Aug','Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -14,6 +15,16 @@ const Chats = ({userId, chats, selectChat, withdrawId}) => {
 
         return year + ' ' + month + ' ' + day + ' ' + hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
     }
+
+    useEffect(() => {
+        const Contents = Array.from(document.querySelectorAll('.content'));
+        if(search !== ''){
+            Contents.forEach(content => {
+                content.innerHTML = content.textContent.replace(search, match => `<span style="color:crimson; font-weight: bold; text; text-decoration: underline">${match}</span>`);
+                console.log(content.innerHTML);
+            });
+        };
+    },[search]);    
     
     return ( 
         <div className="Chats">
