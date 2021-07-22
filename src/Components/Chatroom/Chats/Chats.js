@@ -1,7 +1,7 @@
 import "./Chats.css";
 import { useEffect } from "react";
 
-const Chats = ({userId, chats, selectChat, withdrawId, search}) => {
+const Chats = ({userId, chats, selectChat, withdrawId, isSearch, search}) => {
     const timeConverter = (UNIX_timestamp) => {
         const Month = ['Jan', 'Feb', 'Mar', 'Apr', 'May',' Jun', 'Jul', 'Aug','Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -18,13 +18,23 @@ const Chats = ({userId, chats, selectChat, withdrawId, search}) => {
 
     useEffect(() => {
         const Contents = Array.from(document.querySelectorAll('.content'));
-        if(search !== ''){
+        
+        Contents.forEach(content => {
+            content.innerHTML = content.textContent.replace(/<\/?span[^>]*>/g,'');
+        });
+
+        if(isSearch === true){
+            if(search !== ''){
+                Contents.forEach(content => {
+                    content.innerHTML = content.textContent.replace(search, match => `<span style="background-color: AliceBlue; font-weight: bold; text; border-radius: 0.2em; padding: 0.1em">${match}</span>`);
+                });
+            };
+        }else{
             Contents.forEach(content => {
-                content.innerHTML = content.textContent.replace(search, match => `<span style="color:crimson; font-weight: bold; text; text-decoration: underline">${match}</span>`);
-                console.log(content.innerHTML);
+                content.innerHTML = content.textContent.replace(/<\/?span[^>]*>/g,'');
             });
-        };
-    },[search]);    
+        };        
+    });    
     
     return ( 
         <div className="Chats">
