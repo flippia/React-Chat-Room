@@ -12,6 +12,8 @@ const Chatroom = () => {
     const [ filter, setFilter] = useState([]); 
     const [room, setRoom] = useState('general'); 
     const [withdrawId, setWithdrawId] = useState(null);
+    const [isSearch, setIsSearch] = useState(false);
+    // const [pattern, setPattern] = useState('');
 
     const [user, setUser] = useState(projectAuth.currentUser);
     const [userId, setUserId] = useState('');
@@ -29,10 +31,9 @@ const Chatroom = () => {
         setRoom(name);       
     }
 
-    const handleSearch = () => {   
-        setSearch(search.replace(/[.*+?^${}()|[\]\\]/gi,"\\$&"));
-        // const pattern = new RegExp(`${search}`, "gi");
-        console.log(search);
+    const handleSearch = () => {
+        setIsSearch(true);
+        // setPattern(new RegExp(`${search}`, "gi"));
         setChats(allChats.filter(chat => chat.content.includes(search)));
     }
 
@@ -128,15 +129,16 @@ const Chatroom = () => {
             <Header room = {room} userId = {userId} switchChatRoom={switchChatRoom} realTimeListener={realTimeListener} />
             <div className="chats">
                 <div className="chatsArea">
-                    {chats && <Chats chats={chats} userId={userId} selectChat={selectChat} withdrawId={withdrawId} search={search}/>} 
+                    {chats && <Chats chats={chats} userId={userId} selectChat={selectChat} withdrawId={withdrawId} isSearch={isSearch} search={search}/>} 
                 </div> 
                 <div className="search">
                     <textarea
                     value={search}
-                    onChange={e => setSearch(e.target.value)}
+                    onChange={e => setSearch(e.target.value.replace(/[.*+?^${}()|[\]\\]/gi,"\\$&"))}
                     placeholder="Please input here"></textarea>
                     <button onClick={()=>handleSearch()}>Search</button>
                     <button onClick={() => {
+                        setIsSearch(false);
                         setSearch('');
                         realTimeListener(room);
                     }}>Reset</button>
