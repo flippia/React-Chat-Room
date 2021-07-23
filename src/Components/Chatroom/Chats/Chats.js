@@ -1,7 +1,7 @@
 import "./Chats.css";
 import { useEffect } from "react";
 
-const Chats = ({userId, chats, selectChat, withdrawId, isSearch, search}) => {
+const Chats = ({userId, chats, selectChat, withdrawId, isSearch, search, pattern}) => {
     const timeConverter = (UNIX_timestamp) => {
         const Month = ['Jan', 'Feb', 'Mar', 'Apr', 'May',' Jun', 'Jul', 'Aug','Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -18,15 +18,11 @@ const Chats = ({userId, chats, selectChat, withdrawId, isSearch, search}) => {
 
     useEffect(() => {
         const Contents = Array.from(document.querySelectorAll('.content'));
-        
-        Contents.forEach(content => {
-            content.innerHTML = content.textContent.replace(/<\/?span[^>]*>/g,'');
-        });
 
         if(isSearch === true){
             if(search !== ''){
                 Contents.forEach(content => {
-                    content.innerHTML = content.textContent.replace(search, match => `<span style="background-color: AliceBlue; font-weight: bold; text; border-radius: 0.2em; padding: 0.1em">${match}</span>`);
+                    content.innerHTML = content.textContent.replace(pattern, match => `<span style="background-color: AliceBlue; font-weight: bold; text; border-radius: 0.2em; padding: 0.1em">${match}</span>`);
                 });
             };
         }else{
