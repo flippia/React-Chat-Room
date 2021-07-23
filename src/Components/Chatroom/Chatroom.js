@@ -13,7 +13,7 @@ const Chatroom = () => {
     const [room, setRoom] = useState('general'); 
     const [withdrawId, setWithdrawId] = useState(null);
     const [isSearch, setIsSearch] = useState(false);
-    // const [pattern, setPattern] = useState('');
+    const [pattern, setPattern] = useState('');
 
     const [user, setUser] = useState(projectAuth.currentUser);
     const [userId, setUserId] = useState('');
@@ -32,9 +32,9 @@ const Chatroom = () => {
     }
 
     const handleSearch = () => {
-        setIsSearch(true);
-        // setPattern(new RegExp(`${search}`, "gi"));
-        setChats(allChats.filter(chat => chat.content.includes(search)));
+        setIsSearch(true);        
+        // console.log('%O',pattern);
+        setChats(allChats.filter(chat => chat.content.match(pattern)));
     }
 
     const sendMessage = () => {
@@ -84,27 +84,27 @@ const Chatroom = () => {
         setWithdrawId(null); 
     }
 
-    const deleteMessage = (ID) => {
-        projectFirestore.collection(room).get().then(res => {
-            return res.docs;
-        }).then(docs => docs.map(doc => {
-            return{...doc.data(),id: doc.id};
-        })).then(data => setFilter(data.filter(x => x.ID === ID))).then(filter.forEach(a => {
-            projectFirestore.collection(room).doc(a.id).delete();            
-        }))       
-    }
+    // const deleteMessage = (ID) => {
+    //     projectFirestore.collection(room).get().then(res => {
+    //         return res.docs;
+    //     }).then(docs => docs.map(doc => {
+    //         return{...doc.data(),id: doc.id};
+    //     })).then(data => setFilter(data.filter(x => x.ID === ID))).then(filter.forEach(a => {
+    //         projectFirestore.collection(room).doc(a.id).delete();            
+    //     }))       
+    // }
 
-    const load = (chatroom) => {
-        projectFirestore.collection(chatroom).orderBy('time').get().then(res => {
-            return res.docs;
-        }).then(docs => docs.map(doc => {
-            return{...doc.data(),id: doc.id};
-        })).then(data => {
-            setAllChats(data);
-            const chatsarea = document.querySelector('.chatsArea');
-            chatsarea.scrollTop = chatsarea.scrollHeight;
-        }) 
-    }
+    // const load = (chatroom) => {
+    //     projectFirestore.collection(chatroom).orderBy('time').get().then(res => {
+    //         return res.docs;
+    //     }).then(docs => docs.map(doc => {
+    //         return{...doc.data(),id: doc.id};
+    //     })).then(data => {
+    //         setAllChats(data);
+    //         const chatsarea = document.querySelector('.chatsArea');
+    //         chatsarea.scrollTop = chatsarea.scrollHeight;
+    //     }) 
+    // }
 
     const realTimeListener = (chatroom) => {
         projectFirestore.collection(chatroom).orderBy('time')
@@ -129,12 +129,15 @@ const Chatroom = () => {
             <Header room = {room} userId = {userId} switchChatRoom={switchChatRoom} realTimeListener={realTimeListener} />
             <div className="chats">
                 <div className="chatsArea">
-                    {chats && <Chats chats={chats} userId={userId} selectChat={selectChat} withdrawId={withdrawId} isSearch={isSearch} search={search}/>} 
+                    {chats && <Chats chats={chats} userId={userId} selectChat={selectChat} withdrawId={withdrawId} isSearch={isSearch} search={search} pattern={pattern}/>} 
                 </div> 
                 <div className="search">
                     <textarea
                     value={search}
-                    onChange={e => setSearch(e.target.value.replace(/[.*+?^${}()|[\]\\]/gi,"\\$&"))}
+                    onChange={e => {
+                        setSearch(e.target.value.replace(/[.*+?^${}()|[\]\\]/gi,"\\$&"));
+                        setPattern(new RegExp(`${e.target.value.replace(/[.*+?^${}()|[\]\\]/gi,"\\$&")}`, "gi"));
+                    }}
                     placeholder="Please input here"></textarea>
                     <button onClick={()=>handleSearch()}>Search</button>
                     <button onClick={() => {
